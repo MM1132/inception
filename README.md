@@ -63,7 +63,6 @@ NGINX container must be the sole entry point into your infrastructure
 ---
 gantt
 	title My 42 project completion
-	theme: forest
 	dateFormat YYYY-MM-DD
 
 	section Projects

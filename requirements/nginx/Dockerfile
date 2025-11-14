@@ -11,10 +11,17 @@ WORKDIR /
 # ARG define build arguments that users can pass when building the image
 # VOLUME define volumes, which folder mounts to which folder
 
-RUN apk add --no-cache nginx
+RUN apk add --no-cache nginx openssl
 
-# COPY nginx.conf /etc/nginx/nginx.conf
+RUN mkdir -p /etc/ssl/certs /etc/ssl/private
 
-EXPOSE 80
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+	-keyout /etc/ssl/private/nginx-selfsigned.key \
+	-out /etc/ssl/certs/nginx-selfsigned.crt \
+	-subj "/C=DE/ST=Berlin/L=Berlin/O=42School/OU=Student/CN=rreimann.42.fr"
+
+COPY nginx.conf /etc/nginx/http.d/my_site.conf
+
+EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"]

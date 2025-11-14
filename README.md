@@ -1,3 +1,12 @@
+
+## Steps
+1. Setup Nginx with basic config
+	- Figure out where the config file is located and what it needs to contain
+
+
+
+---
+
 - Must write my own Dockerfiles that are called from docker-compose.yml
 
 ## Setup
@@ -33,12 +42,11 @@ NGINX container must be the sole entry point into your infrastructure
 - WordPress website files
 
 ```mermaid
-	graph LR
+	flowchart-elk LR
 
-	subgraph MAIN[This is how to do it!]
-	CDB[Container DB]
-	CWP[Container WordPress + PHP]
-	CNX[Container NGINX]
+	CDB((Container DB))
+	CWP((Container WordPress + PHP))
+	CNX((Container NGINX))
 	DB
 	WP[WordPress]
 	WWW
@@ -51,10 +59,9 @@ NGINX container must be the sole entry point into your infrastructure
 
 	CNX <.-> WP
 	CNX <.->|443| WWW
-	end
 
-	A{How to do it?}
-	A --> MAIN
+	CWP:::red
+	classDef red fill:#f00,stroke-width:4px,stroke:#fff,color:#000
 ```
 
 ```mermaid

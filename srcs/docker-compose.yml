@@ -50,13 +50,13 @@ volumes:
     driver_opts:
       type: bind
       o: bind
-      device: /home/robert/data/www
+      device: ${HOME}/data/www
   mariadb-data:
     driver: local
     driver_opts:
       type: bind
       o: bind
-      device: /home/robert/data/db
+      device: ${HOME}/data/db
 
 secrets:
   db_pass:

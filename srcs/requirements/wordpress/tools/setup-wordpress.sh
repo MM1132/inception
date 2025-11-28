@@ -1,6 +1,8 @@
 #!/bin/sh
 
 DB_PASS=$(cat /run/secrets/db_pass)
+WP_ADMIN_PASS=$(cat /run/secrets/wp_admin_pass)
+WP_USER_PASS=$(cat /run/secrets/wp_user_pass)
 
 # Check if WordPress is already installed in the volume
 if [ ! -f "/var/www/html/wp-config.php" ]; then
@@ -36,13 +38,13 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
         --url="rreimann.42.fr" \
         --title="Robert's Awesome Site" \
         --admin_user="robert" \
-        --admin_password="password" \
+        --admin_password="${WP_ADMIN_PASS}" \
         --admin_email="secure@admin.email" \
         --skip-email \
         --allow-root \
         --locale="en_US"
     
-    wp user create user secure@user.email --role=author --user_pass="password" --allow-root
+    wp user create user secure@user.email --role=author --user_pass="${WP_USER_PASS}" --allow-root
 else
     echo "Skipping installation, as WP is already installed :c"
 fi

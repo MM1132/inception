@@ -1,8 +1,8 @@
 ## Setup tutorial
 - You need to fill the secrets yourself, as they are not commited to git
 - Create a directory in the root of the project named `secrets`
-- In the secrets folder, create `db_password.txt`
-- Write a pass of your choice into the folder without a new line at the end
+- In the secrets folder, create `db_password.txt`, `wp_admin_password.txt` and `wp_user_password.txt`
+- Write passwords of your choice into those files, WITHOUT a new line at the end
 
 ## Important notes
 - There is not way to set a custom image name with docker-compose.yml

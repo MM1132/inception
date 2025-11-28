@@ -18,7 +18,8 @@ services:
     networks:
       - inception-network
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     environment:
       DB_NAME: ${DB_NAME}
       DB_USER: ${DB_USER}
@@ -39,6 +40,12 @@ services:
       - db_pass
     volumes:
       - mariadb-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "sh", "-c", "mysqladmin ping -h localhost && mysql -u${DB_USER} -p$$(cat /run/secrets/db_pass) -e 'USE ${DB_NAME};' 2>/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 networks:
   inception-network:

@@ -21,9 +21,28 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
     sed -i "s/the_awesome_db_user/${DB_USER}/" /var/www/html/wp-config.php
     sed -i "s/the_awesome_db_pass/${DB_PASS}/" /var/www/html/wp-config.php
     # envsubst < /wp-config-template.php > /var/www/html/wp-config.php
-    
+
     # Set proper ownership
     chown -R nobody:nobody /var/www/html
+    
+    ## wp shit
+    cd /tmp
+    wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    chmod +x wp-cli.phar
+    mv wp-cli.phar /usr/local/bin/wp
+    cd /var/www/html
+
+    wp core install \
+        --url="rreimann.42.fr" \
+        --title="Robert's Awesome Site" \
+        --admin_user="robert" \
+        --admin_password="password" \
+        --admin_email="secure@admin.email" \
+        --skip-email \
+        --allow-root \
+        --locale="en_US"
+    
+    wp user create user secure@user.email --role=author --user_pass="password" --allow-root
 else
     echo "Skipping installation, as WP is already installed :c"
 fi

@@ -14,11 +14,13 @@ RUN apk add --no-cache \
     php83-fileinfo \
     php83-mbstring \
     php83-openssl \
+    php83-phar \
     php83-xml \
     php83-zip \
     php83-redis \
     wget \
-    unzip
+    unzip \
+    curl
 
 # Configure PHP-FPM to listen on port 9000
 RUN sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /etc/php83/php-fpm.d/www.conf
@@ -31,4 +33,4 @@ RUN chmod +x /setup-wordpress.sh
 
 EXPOSE 9000
 
-CMD ["/setup-wordpress.sh"]
+ENTRYPOINT ["/setup-wordpress.sh"]
